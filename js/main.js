@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   new ContactForm(
     document.getElementById('contact-form'),
-    new FormService('https://formspree.io/f/YOUR_FORM_ID'),
+    new FormService('https://formspree.io/f/xgobrbnz'),
     validators
   ).init();
 
