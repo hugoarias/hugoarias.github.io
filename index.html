@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hugo Arias — Software Engineer & Full Stack Developer. Personal portfolio showcasing projects, skills, and contact.">
+  <meta name="author" content="Hugo Arias">
+  <meta property="og:title" content="Hugo Arias — Software Engineer & Full Stack Developer">
+  <meta property="og:description" content="Personal portfolio of Hugo Arias, Software Engineer & Full Stack Developer.">
+  <meta property="og:type" content="website">
+  <title>Hugo Arias — Software Engineer & Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Sentinel: observed by IntersectionObserver to detect page scroll start -->
+  <div id="scroll-sentinel" aria-hidden="true"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar" role="banner">
+    <nav class="navbar__inner container" aria-label="Main navigation">
+      <a href="#home" class="navbar__logo" aria-label="Hugo Arias — back to top">HA</a>
+
+      <button
+        class="navbar__hamburger"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        aria-label="Open navigation menu"
+      >
+        <span class="navbar__hamburger-line"></span>
+        <span class="navbar__hamburger-line"></span>
+        <span class="navbar__hamburger-line"></span>
+      </button>
+
+      <ul class="navbar__menu" id="nav-menu" role="list">
+        <li><a href="#home"     class="navbar__link">Home</a></li>
+        <li><a href="#about"    class="navbar__link">About</a></li>
+        <li><a href="#skills"   class="navbar__link">Skills</a></li>
+        <li><a href="#projects" class="navbar__link">Projects</a></li>
+        <li><a href="#contact"  class="navbar__link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero" aria-label="Introduction">
+      <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__content container">
+        <p class="hero__greeting">Hi, I'm</p>
+        <h1 class="hero__name">Hugo Arias</h1>
+        <h2 class="hero__title">Software Engineer &amp; Full Stack Developer</h2>
+        <p class="hero__tagline">Building scalable, clean, and impactful web applications.</p>
+        <div class="hero__cta" role="group" aria-label="Call to action">
+          <a href="#projects" class="btn btn--primary">View Projects</a>
+          <a href="#contact"  class="btn btn--outline">Contact Me</a>
+        </div>
+      </div>
+      <a href="#about" class="hero__scroll-arrow" aria-label="Scroll to About section">
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="about section-padding" aria-labelledby="about-heading">
+      <div class="container">
+        <h2 id="about-heading" class="section-title">About Me</h2>
+        <div class="about__grid">
+
+          <div class="about__image-wrapper reveal">
+            <div class="about__photo-placeholder" role="img" aria-label="Profile photo placeholder">
+              <i class="fa-solid fa-user" aria-hidden="true"></i>
+            </div>
+            <!-- Replace the div above with an <img> tag once you have a photo:
+            <img
+              src="assets/images/profile.jpg"
+              alt="Hugo Arias, Software Engineer"
+              class="about__photo"
+              width="280" height="280"
+              loading="lazy"
+            > -->
+          </div>
+
+          <div class="about__content reveal">
+            <p class="about__bio">
+              I'm a passionate Software Engineer and Full Stack Developer with a strong focus on building reliable, scalable web applications. I enjoy working across the entire stack — from crafting intuitive user interfaces to designing robust backend systems.
+            </p>
+            <p class="about__bio">
+              With experience in modern JavaScript, Python, and cloud technologies, I thrive on solving complex problems and delivering clean, maintainable code. I'm always learning and excited about new challenges.
+            </p>
+
+            <ul class="about__facts" aria-label="Key facts">
+              <li class="about__fact">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                <span>United States</span>
+              </li>
+              <li class="about__fact">
+                <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+                <span>Full Stack Developer</span>
+              </li>
+              <li class="about__fact">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <span>hugo.arias@niceincontact.com</span>
+              </li>
+              <li class="about__fact">
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                <span>github.com/hugo-arias</span>
+              </li>
+            </ul>
+
+            <a href="#contact" class="btn btn--primary">Get In Touch</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="skills section-padding section-alt" aria-labelledby="skills-heading">
+      <div class="container">
+        <h2 id="skills-heading" class="section-title">Skills &amp; Technologies</h2>
+        <div class="skills__grid">
+
+          <article class="skill-card reveal" aria-label="Languages">
+            <div class="skill-card__header">
+              <i class="fa-solid fa-code" aria-hidden="true"></i>
+              <h3 class="skill-card__title">Languages</h3>
+            </div>
+            <ul class="skill-card__list" role="list">
+              <li class="skill-tag">Python</li>
+              <li class="skill-tag">JavaScript</li>
+              <li class="skill-tag">TypeScript</li>
+              <li class="skill-tag">Java</li>
+              <li class="skill-tag">SQL</li>
+              <li class="skill-tag">HTML / CSS</li>
+            </ul>
+          </article>
+
+          <article class="skill-card reveal" aria-label="Frameworks">
+            <div class="skill-card__header">
+              <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+              <h3 class="skill-card__title">Frameworks</h3>
+            </div>
+            <ul class="skill-card__list" role="list">
+              <li class="skill-tag">React</li>
+              <li class="skill-tag">Node.js</li>
+              <li class="skill-tag">FastAPI</li>
+              <li class="skill-tag">Django</li>
+              <li class="skill-tag">Express</li>
+              <li class="skill-tag">Spring Boot</li>
+            </ul>
+          </article>
+
+          <article class="skill-card reveal" aria-label="Tools">
+            <div class="skill-card__header">
+              <i class="fa-solid fa-wrench" aria-hidden="true"></i>
+              <h3 class="skill-card__title">Tools</h3>
+            </div>
+            <ul class="skill-card__list" role="list">
+              <li class="skill-tag">Git</li>
+              <li class="skill-tag">Docker</li>
+              <li class="skill-tag">VS Code</li>
+              <li class="skill-tag">Postman</li>
+              <li class="skill-tag">Linux</li>
+              <li class="skill-tag">Webpack</li>
+            </ul>
+          </article>
+
+          <article class="skill-card reveal" aria-label="Cloud and DevOps">
+            <div class="skill-card__header">
+              <i class="fa-solid fa-cloud" aria-hidden="true"></i>
+              <h3 class="skill-card__title">Cloud / DevOps</h3>
+            </div>
+            <ul class="skill-card__list" role="list">
+              <li class="skill-tag">AWS</li>
+              <li class="skill-tag">GCP</li>
+              <li class="skill-tag">CI/CD</li>
+              <li class="skill-tag">Kubernetes</li>
+              <li class="skill-tag">Terraform</li>
+              <li class="skill-tag">GitHub Actions</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="projects section-padding" aria-labelledby="projects-heading">
+      <div class="container">
+        <h2 id="projects-heading" class="section-title">Projects</h2>
+        <div class="projects__grid">
+
+          <article class="project-card reveal" aria-label="Project: RAG Backend">
+            <div class="project-card__image-wrapper">
+              <div class="project-card__image-placeholder" aria-hidden="true">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <div class="project-card__overlay" aria-hidden="true"></div>
+            </div>
+            <div class="project-card__content">
+              <h3 class="project-card__title">RAG Backend</h3>
+              <p class="project-card__description">A Retrieval-Augmented Generation API for semantic document search, powered by vector embeddings and LLM responses.</p>
+              <ul class="project-card__tags" role="list" aria-label="Technologies used">
+                <li class="tag">Python</li>
+                <li class="tag">FastAPI</li>
+                <li class="tag">LangChain</li>
+                <li class="tag">PostgreSQL</li>
+              </ul>
+              <div class="project-card__links">
+                <a href="#" class="btn btn--sm btn--outline" target="_blank" rel="noopener noreferrer" aria-label="View RAG Backend source on GitHub">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+                </a>
+                <a href="#" class="btn btn--sm btn--primary" target="_blank" rel="noopener noreferrer" aria-label="Open RAG Backend live demo">
+                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" aria-label="Project: Real-Time Chat API">
+            <div class="project-card__image-wrapper">
+              <div class="project-card__image-placeholder" aria-hidden="true">
+                <i class="fa-solid fa-comments"></i>
+              </div>
+              <div class="project-card__overlay" aria-hidden="true"></div>
+            </div>
+            <div class="project-card__content">
+              <h3 class="project-card__title">Real-Time Chat API</h3>
+              <p class="project-card__description">Scalable real-time messaging backend with WebSocket support, Redis pub/sub, and containerized deployment.</p>
+              <ul class="project-card__tags" role="list" aria-label="Technologies used">
+                <li class="tag">Node.js</li>
+                <li class="tag">WebSocket</li>
+                <li class="tag">Redis</li>
+                <li class="tag">Docker</li>
+              </ul>
+              <div class="project-card__links">
+                <a href="#" class="btn btn--sm btn--outline" target="_blank" rel="noopener noreferrer" aria-label="View Real-Time Chat API source on GitHub">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+                </a>
+                <a href="#" class="btn btn--sm btn--primary" target="_blank" rel="noopener noreferrer" aria-label="Open Real-Time Chat API live demo">
+                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" aria-label="Project: ADK Integration">
+            <div class="project-card__image-wrapper">
+              <div class="project-card__image-placeholder" aria-hidden="true">
+                <i class="fa-solid fa-plug"></i>
+              </div>
+              <div class="project-card__overlay" aria-hidden="true"></div>
+            </div>
+            <div class="project-card__content">
+              <h3 class="project-card__title">ADK Integration</h3>
+              <p class="project-card__description">REST API integration layer bridging cloud services, featuring OAuth2 auth, rate-limiting, and health monitoring.</p>
+              <ul class="project-card__tags" role="list" aria-label="Technologies used">
+                <li class="tag">Python</li>
+                <li class="tag">REST API</li>
+                <li class="tag">GCP</li>
+                <li class="tag">OAuth2</li>
+              </ul>
+              <div class="project-card__links">
+                <a href="#" class="btn btn--sm btn--outline" target="_blank" rel="noopener noreferrer" aria-label="View ADK Integration source on GitHub">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" aria-label="Project: Personal Portfolio">
+            <div class="project-card__image-wrapper">
+              <div class="project-card__image-placeholder" aria-hidden="true">
+                <i class="fa-solid fa-globe"></i>
+              </div>
+              <div class="project-card__overlay" aria-hidden="true"></div>
+            </div>
+            <div class="project-card__content">
+              <h3 class="project-card__title">Personal Portfolio</h3>
+              <p class="project-card__description">This very site — built with plain HTML, CSS, and ES6 modules following SOLID principles. Zero dependencies, instant deploy.</p>
+              <ul class="project-card__tags" role="list" aria-label="Technologies used">
+                <li class="tag">HTML</li>
+                <li class="tag">CSS</li>
+                <li class="tag">JavaScript</li>
+                <li class="tag">ES6 Modules</li>
+              </ul>
+              <div class="project-card__links">
+                <a href="#" class="btn btn--sm btn--outline" target="_blank" rel="noopener noreferrer" aria-label="View Personal Portfolio source on GitHub">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+                </a>
+                <a href="#" class="btn btn--sm btn--primary" target="_blank" rel="noopener noreferrer" aria-label="Open Personal Portfolio live demo">
+                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="contact section-padding section-alt" aria-labelledby="contact-heading">
+      <div class="container">
+        <h2 id="contact-heading" class="section-title">Get In Touch</h2>
+        <div class="contact__grid">
+
+          <div class="contact__info reveal">
+            <p class="contact__intro">
+              Have a project in mind, want to collaborate, or just say hi? I'm always open to interesting conversations.
+            </p>
+            <ul class="contact__socials" role="list" aria-label="Social links">
+              <li>
+                <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="contact__social-link" aria-label="Visit Hugo's GitHub profile">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i>
+                  <span>GitHub</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="contact__social-link" aria-label="Visit Hugo's LinkedIn profile">
+                  <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:hugo.arias@niceincontact.com" class="contact__social-link" aria-label="Send an email to Hugo">
+                  <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                  <span>hugo.arias@niceincontact.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <form class="contact__form reveal" id="contact-form" novalidate aria-label="Contact form">
+            <div class="form-group">
+              <label class="form-group__label" for="name">Name <span aria-hidden="true">*</span></label>
+              <input
+                class="form-group__input"
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+                aria-required="true"
+                aria-describedby="name-error"
+              >
+              <span class="form-group__error" id="name-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-group__label" for="email">Email <span aria-hidden="true">*</span></label>
+              <input
+                class="form-group__input"
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="your@email.com"
+                aria-required="true"
+                aria-describedby="email-error"
+              >
+              <span class="form-group__error" id="email-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-group__label" for="message">Message <span aria-hidden="true">*</span></label>
+              <textarea
+                class="form-group__input form-group__input--textarea"
+                id="message"
+                name="message"
+                rows="5"
+                required
+                placeholder="Your message..."
+                aria-required="true"
+                aria-describedby="message-error"
+              ></textarea>
+              <span class="form-group__error" id="message-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--full">
+              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message
+            </button>
+            <p class="contact__form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <p>&copy; <span id="current-year"></span> Hugo Arias. All rights reserved.</p>
+      <p class="site-footer__made-with">Built with HTML, CSS &amp; JavaScript</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
