@@ -1,0 +1,526 @@
+<title>Consola de Negocio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12172A;
+    --paper:#F1F2F6;
+    --surface:#FFFFFF;
+    --surface-2:#E9EAF0;
+    --accent:#E9481E;
+    --accent-ink:#FFFFFF;
+    --accent-2:#0E7C72;
+    --line: rgba(18,23,42,.14);
+    --code-bg:#0D1120;
+    --code-line: rgba(237,239,244,.14);
+    --code-text:#EAEDF7;
+    --code-accent:#7CE0D3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#EDEFF4;
+      --paper:#0A0D16;
+      --surface:#141826;
+      --surface-2:#1B2032;
+      --accent:#FF7A4D;
+      --accent-ink:#161200;
+      --accent-2:#3FDBC9;
+      --line: rgba(237,239,244,.14);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#EDEFF4;
+    --paper:#0A0D16;
+    --surface:#141826;
+    --surface-2:#1B2032;
+    --accent:#FF7A4D;
+    --accent-ink:#161200;
+    --accent-2:#3FDBC9;
+    --line: rgba(237,239,244,.14);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    line-height:1.55;
+  }
+  .wrap{ max-width:780px; margin:0 auto; padding:40px 20px 80px; }
+  h1,h2,h3{
+    font-family:'Big Shoulders Display','IBM Plex Sans', sans-serif;
+    font-weight:800;
+    line-height:1.02;
+    margin:0;
+    text-wrap:balance;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent-2);
+  }
+  header.top{ margin-bottom:32px; }
+  header.top h1{ font-size:clamp(34px,7vw,52px); margin-top:8px; }
+  header.top p.lead{
+    margin:14px 0 0;
+    max-width:56ch;
+    color:var(--ink);
+    opacity:.78;
+    font-size:16px;
+  }
+  nav.jump{ display:flex; flex-wrap:wrap; gap:8px; margin:24px 0 0; }
+  nav.jump a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:500;
+    text-decoration:none;
+    color:var(--ink);
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:6px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  nav.jump a:hover{ border-color:var(--accent-2); color:var(--accent-2); }
+
+  .panel{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:24px;
+    margin-top:28px;
+  }
+  .panel-title{ margin-bottom:4px; }
+  .panel-title h2{ font-size:22px; }
+  .panel .hint{ font-size:13px; color:var(--ink); opacity:.6; margin:0 0 18px; }
+  .field{ margin-bottom:16px; }
+  .field label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.02em;
+    margin-bottom:6px;
+    color:var(--ink);
+    opacity:.85;
+  }
+  .field .opt{ font-weight:400; opacity:.6; }
+  .field input, .field textarea{
+    width:100%;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:14.5px;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:11px 13px;
+    resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{
+    outline:2px solid var(--accent-2);
+    outline-offset:1px;
+  }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:520px){ .field-row{ grid-template-columns:1fr; } }
+
+  .blocks{ margin-top:36px; display:flex; flex-direction:column; gap:20px; }
+  .block{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:22px 22px 20px;
+    scroll-margin-top:16px;
+  }
+  .block .row{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+  .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:14px;
+    color:var(--accent-ink);
+    background:var(--accent);
+    width:30px; height:30px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .block h3{ font-size:22px; }
+  .block .blurb{ font-size:14px; opacity:.72; margin:0 0 14px; max-width:62ch; }
+  .codebox{
+    position:relative;
+    background:var(--code-bg);
+    border:1px solid var(--code-line);
+    border-radius:12px;
+    padding:16px 16px 50px;
+  }
+  .codebox pre{
+    margin:0;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    line-height:1.65;
+    color:var(--code-text);
+    white-space:pre-wrap;
+    word-break:break-word;
+    max-height:340px;
+    overflow-y:auto;
+  }
+  .copybar{ position:absolute; left:16px; right:16px; bottom:12px; display:flex; justify-content:flex-end; }
+  button.copy{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.02em;
+    color:var(--accent-ink);
+    background:var(--accent);
+    border:none;
+    border-radius:8px;
+    padding:8px 14px;
+    cursor:pointer;
+  }
+  button.copy:hover{ filter:brightness(1.06); }
+  button.copy.done{ background:var(--accent-2); }
+  button.copy:focus-visible{ outline:2px solid var(--code-accent); outline-offset:2px; }
+
+  .tip{ margin-top:32px; border:1px dashed var(--line); border-radius:14px; padding:16px 18px; font-size:13.5px; opacity:.85; }
+  .tip b{ color:var(--accent-2); }
+  .extra{ margin-top:8px; }
+  .extra summary{ cursor:pointer; font-size:13px; font-weight:600; color:var(--accent-2); }
+
+  footer.foot{ margin-top:40px; font-size:12px; opacity:.5; text-align:center; }
+
+  @media (prefers-reduced-motion: no-preference){
+    button.copy{ transition:background-color .15s ease; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">Parte 2 · De idea a negocio</div>
+    <h1>Consola de Negocio</h1>
+    <p class="lead">Completa los datos de tu idea una sola vez. Abajo tienes 7 prompts listos para copiar y pegar en tu IA favorita (ChatGPT, Claude, Gemini) — uno por cada bloque del taller. La IA hace el desarrollo; el equipo discute y decide.</p>
+    <nav class="jump" id="jump"></nav>
+  </header>
+
+  <section class="panel">
+    <div class="panel-title"><h2>Tu idea</h2></div>
+    <p class="hint">Estos campos vienen con un ejemplo cargado — reemplázalos por los datos reales de tu equipo. Se guardan en este navegador para que no se pierdan si recargas la página.</p>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="equipo">Nombre del equipo <span class="opt">(opcional)</span></label>
+        <input id="equipo" type="text" value="Equipo Ejemplo">
+      </div>
+      <div class="field">
+        <label for="pais">País o región <span class="opt">(opcional)</span></label>
+        <input id="pais" type="text" value="" placeholder="ej. México">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="tipo">Tipo de emprendimiento</label>
+      <input id="tipo" type="text" value="App de mandados para adultos mayores">
+    </div>
+
+    <div class="field">
+      <label for="descripcion">Descripción de la idea</label>
+      <textarea id="descripcion" rows="3">Conectamos a adultos mayores que viven solos con vecinos de confianza que les hacen compras y trámites, coordinado por WhatsApp y verificado por la comunidad del barrio.</textarea>
+    </div>
+
+    <div class="field" style="margin-bottom:0;">
+      <label for="perfiles">Perfiles de tu equipo <span class="opt">(opcional, separados por coma)</span></label>
+      <input id="perfiles" type="text" value="Marketing, IT, Diseño, Finanzas">
+    </div>
+  </section>
+
+  <div class="blocks" id="blocks"></div>
+
+  <div class="tip">💡 <b>Tip de facilitación:</b> designen a una persona del equipo como "piloto de IA" que va pegando los prompts en orden, en el mismo chat. El resto del equipo discute la respuesta antes de pasar al siguiente bloque — la IA propone, el equipo decide.</div>
+
+  <footer class="foot">Business Challenge · Parte 2 — Kit de prompts</footer>
+</div>
+
+<script>
+(function(){
+  var FIELDS = ['equipo','tipo','descripcion','perfiles','pais'];
+  var STORE_KEY = 'consola-negocio-v1';
+
+  function val(id){
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function ctx(){
+    return {
+      equipo: val('equipo') || 'Nuestro equipo',
+      tipo: val('tipo') || '[completar: tipo de emprendimiento]',
+      desc: val('descripcion') || '[completar: descripción de la idea]',
+      perfiles: val('perfiles') || '[completar: perfiles de tu equipo]',
+      pais: val('pais') || '[completar: país o región]'
+    };
+  }
+
+  function head(c){
+    return 'Idea de negocio:\n- Tipo de emprendimiento: ' + c.tipo + '\n- Descripción: ' + c.desc;
+  }
+
+  var BLOCKS = [
+    {
+      key: 'modelo',
+      title: '1. Modelo de negocio',
+      blurb: 'Cliente, propuesta de valor, canales, ingresos, costos, recursos y socios clave.',
+      build: function(c){
+        return 'Actúa como un consultor de estrategia especializado en modelos de negocio.\n\n' +
+        head(c) + '\n\n' +
+        'Ayúdanos a construir nuestro modelo de negocio completo. Cubre cada uno de estos 7 elementos con 2-4 puntos concretos y específicos a nuestra idea (nada genérico):\n\n' +
+        '1. Cliente: ¿quién es exactamente nuestro cliente? Sé específico (edad, contexto, comportamiento).\n' +
+        '2. Propuesta de valor: ¿qué problema resolvemos y por qué nos elegirían a nosotros?\n' +
+        '3. Canales: ¿cómo llega nuestra solución al cliente?\n' +
+        '4. Fuentes de ingreso: ¿cómo y cuándo cobramos?\n' +
+        '5. Costos: ¿cuáles son nuestros costos principales, fijos y variables?\n' +
+        '6. Recursos clave: ¿qué necesitamos tener o controlar para que esto funcione?\n' +
+        '7. Socios clave: ¿con quién necesitaríamos aliarnos?\n\n' +
+        'Preséntalo en una tabla clara. Al final, haznos 2 preguntas críticas que pongan a prueba si este modelo realmente es viable, basadas en el punto más débil que veas.';
+      }
+    },
+    {
+      key: 'recursos',
+      title: '2. Recursos',
+      blurb: 'Qué necesitamos para arrancar y qué perfiles nos faltan en el equipo.',
+      build: function(c){
+        return 'Actúa como un asesor de operaciones y armado de equipos para startups en etapa temprana.\n\n' +
+        head(c) + '\n' +
+        '- Perfiles actuales del equipo: ' + c.perfiles + '\n\n' +
+        'Ayúdanos a mapear qué necesitamos para arrancar este negocio, con ejemplos concretos para nuestro caso (no genéricos), organizados en estas categorías:\n\n' +
+        '- Personas (roles necesarios, no nombres)\n' +
+        '- Capital (montos orientativos y para qué se usarían)\n' +
+        '- Tecnología\n' +
+        '- Proveedores\n' +
+        '- Infraestructura\n' +
+        '- Conocimiento / know-how\n' +
+        '- Contactos\n' +
+        '- Permisos\n\n' +
+        'Con base en los perfiles actuales del equipo, dinos qué perfiles nos faltan y qué rol cumpliría cada uno.\n\n' +
+        'Cierra con 2 preguntas críticas sobre cuál de estos recursos es el mayor cuello de botella para arrancar.';
+      }
+    },
+    {
+      key: 'marketing',
+      title: '3. Marketing',
+      blurb: 'Dónde están los primeros clientes, mensaje, canal y plan para los primeros 10.',
+      build: function(c){
+        return 'Actúa como un estratega de marketing y growth para startups en etapa temprana.\n\n' +
+        head(c) + '\n\n' +
+        'Ayúdanos a diseñar la estrategia de marketing inicial. Responde de forma específica:\n\n' +
+        '1. ¿Dónde están física o digitalmente nuestros primeros clientes? (lugares, comunidades o plataformas reales)\n' +
+        '2. ¿Cómo llegamos a ellos? (2-3 tácticas concretas)\n' +
+        '3. ¿Qué mensaje usaríamos? Escribe 2 versiones de un mensaje corto (1-2 frases) que conecte con el problema real que resolvemos.\n' +
+        '4. ¿Qué canal priorizaríamos y por qué?\n' +
+        '5. Danos un plan paso a paso, de máximo 5 pasos, para conseguir nuestros primeros 10 clientes en las próximas 2 semanas.\n\n' +
+        'Cierra con 2 preguntas críticas sobre qué supuesto de este plan es el más riesgoso.';
+      }
+    },
+    {
+      key: 'finanzas',
+      title: '4. Finanzas',
+      blurb: 'Inversión, precio, costos, ingresos, punto de equilibrio y rentabilidad.',
+      build: function(c){
+        return 'Actúa como un analista financiero que ayuda a validar ideas de negocio en etapa temprana.\n\n' +
+        head(c) + '\n\n' +
+        'Ayúdanos a hacer una primera mirada financiera, con números orientativos razonables (aclarando siempre que son estimaciones):\n\n' +
+        '1. Inversión inicial necesaria: desglósala en 3-5 rubros con montos aproximados.\n' +
+        '2. Precio: propón un precio o rango de precio y la lógica detrás.\n' +
+        '3. Costos fijos y variables mensuales estimados.\n' +
+        '4. Proyección simple de ingresos a 3 y 6 meses, en escenario conservador y esperado.\n' +
+        '5. Punto de equilibrio: cuántos clientes necesitamos para cubrir costos.\n' +
+        '6. Rentabilidad posible a 6-12 meses.\n\n' +
+        'Presenta los números en una tabla y aclara todos los supuestos que estás usando.\n\n' +
+        'Cierra con 2 preguntas críticas sobre qué número de este análisis es el más frágil o incierto.';
+      }
+    },
+    {
+      key: 'legal',
+      title: '5. Legal',
+      blurb: 'Figura legal, contratos, permisos, propiedad intelectual y datos.',
+      build: function(c){
+        return 'Actúa como un asesor legal generalista para nuevos emprendimientos (aclarando siempre que no reemplaza asesoría legal profesional).\n\n' +
+        head(c) + '\n' +
+        '- País o región donde operaríamos: ' + c.pais + '\n\n' +
+        'Ayúdanos a identificar qué necesitaríamos para operar legalmente:\n\n' +
+        '1. Tipo de empresa o figura legal recomendada para empezar (y alternativas).\n' +
+        '2. Contratos clave que necesitaríamos (con clientes, proveedores, entre socios).\n' +
+        '3. Permisos o licencias específicas de este rubro.\n' +
+        '4. Consideraciones de propiedad intelectual (marca, patentes, derechos de autor) relevantes.\n' +
+        '5. Consideraciones de protección de datos si manejamos información de clientes.\n' +
+        '6. Regulaciones específicas del sector que deberíamos investigar más a fondo.\n\n' +
+        'Aclara siempre que esto es una guía orientativa general, no asesoría legal formal, y qué deberíamos confirmar con un profesional.\n\n' +
+        'Cierra con 2 preguntas críticas sobre qué riesgo legal es el más urgente de resolver antes de operar.';
+      }
+    },
+    {
+      key: 'tecnologia',
+      title: '6. Tecnología + IA',
+      blurb: 'Qué partes del negocio se pueden potenciar con tecnología o IA, y por dónde empezar.',
+      build: function(c){
+        return 'Actúa como un consultor en transformación digital e IA aplicada a negocios.\n\n' +
+        head(c) + '\n\n' +
+        'Identifica específicamente qué partes de este negocio se podrían potenciar con tecnología o IA. Para cada una de estas áreas, dinos SI aplica a nuestro caso y CÓMO exactamente (herramienta o enfoque concreto, no genérico):\n\n' +
+        '- Investigación de mercado\n' +
+        '- Atención al cliente\n' +
+        '- Automatización de procesos\n' +
+        '- Análisis de datos\n' +
+        '- Personalización de la oferta\n' +
+        '- Marketing\n' +
+        '- Ventas\n' +
+        '- Operaciones\n' +
+        '- Prototipado / validación rápida\n\n' +
+        'De todas las oportunidades identificadas, señala cuáles 2 tendrían el mayor impacto con el menor esfuerzo de implementación, y por qué. No hace falta proponer desarrollar una aplicación propia: prioriza herramientas existentes que ya podríamos usar.\n\n' +
+        'Cierra con 2 preguntas críticas sobre qué riesgo trae depender de IA en esa parte del negocio.';
+      }
+    },
+    {
+      key: 'mvp',
+      title: '7. MVP en 7 días',
+      blurb: 'La versión más chica de este negocio que se puede probar en una semana.',
+      build: function(c){
+        return 'Actúa como un mentor de startups especializado en validación rápida (lean startup).\n\n' +
+        head(c) + '\n\n' +
+        'Ayúdanos a diseñar la versión más pequeña posible de este negocio que podamos probar en 7 días, sin construir nada complejo.\n\n' +
+        '1. ¿Cuál es la hipótesis principal que necesitamos validar primero?\n' +
+        '2. Describe el MVP más simple posible (puede ser manual, sin tecnología, tipo "mago de Oz", una landing page, un servicio hecho a mano, etc.)\n' +
+        '3. Plan día por día, de Día 1 a Día 7, de qué haríamos.\n' +
+        '4. ¿Cómo mediríamos si funcionó o no? Define 1-2 métricas claras de éxito.\n' +
+        '5. ¿Qué necesitaríamos tener listo antes del Día 1?\n\n' +
+        'Cierra con 2 preguntas críticas sobre qué parte de este plan es la más optimista y podría no cumplirse.';
+      }
+    }
+  ];
+
+  var jumpNav = document.getElementById('jump');
+  var blocksEl = document.getElementById('blocks');
+
+  BLOCKS.forEach(function(b){
+    var a = document.createElement('a');
+    a.href = '#b-' + b.key;
+    a.textContent = b.title.replace(/^\d+\.\s*/, '');
+    jumpNav.appendChild(a);
+
+    var block = document.createElement('article');
+    block.className = 'block';
+    block.id = 'b-' + b.key;
+
+    var row = document.createElement('div');
+    row.className = 'row';
+    var num = document.createElement('div');
+    num.className = 'num';
+    num.textContent = b.title.match(/^\d+/)[0];
+    var h3 = document.createElement('h3');
+    h3.textContent = b.title.replace(/^\d+\.\s*/, '');
+    row.appendChild(num);
+    row.appendChild(h3);
+
+    var blurb = document.createElement('p');
+    blurb.className = 'blurb';
+    blurb.textContent = b.blurb;
+
+    var codebox = document.createElement('div');
+    codebox.className = 'codebox';
+    var pre = document.createElement('pre');
+    pre.id = 'pre-' + b.key;
+
+    var copybar = document.createElement('div');
+    copybar.className = 'copybar';
+    var btn = document.createElement('button');
+    btn.className = 'copy';
+    btn.type = 'button';
+    btn.textContent = 'Copiar prompt';
+    copybar.appendChild(btn);
+
+    codebox.appendChild(pre);
+    codebox.appendChild(copybar);
+
+    block.appendChild(row);
+    block.appendChild(blurb);
+    block.appendChild(codebox);
+    blocksEl.appendChild(block);
+
+    btn.addEventListener('click', function(){
+      var text = pre.textContent;
+      function done(){
+        var original = 'Copiar prompt';
+        btn.textContent = '✓ Copiado';
+        btn.classList.add('done');
+        setTimeout(function(){
+          btn.textContent = original;
+          btn.classList.remove('done');
+        }, 1500);
+      }
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+        } else {
+          fallbackCopy(text, done);
+        }
+      }catch(e){
+        fallbackCopy(text, done);
+      }
+    });
+  });
+
+  function fallbackCopy(text, cb){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      cb();
+    }catch(e){ /* clipboard unavailable, ignore */ }
+  }
+
+  function renderAll(){
+    var c = ctx();
+    BLOCKS.forEach(function(b){
+      var pre = document.getElementById('pre-' + b.key);
+      if(pre) pre.textContent = b.build(c);
+    });
+    saveState();
+  }
+
+  function saveState(){
+    try{
+      var data = {};
+      FIELDS.forEach(function(f){ data[f] = val(f); });
+      localStorage.setItem(STORE_KEY, JSON.stringify(data));
+    }catch(e){ /* storage unavailable, ignore */ }
+  }
+
+  function loadState(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(!raw) return;
+      var data = JSON.parse(raw);
+      FIELDS.forEach(function(f){
+        if(data[f] !== undefined){
+          var el = document.getElementById(f);
+          if(el) el.value = data[f];
+        }
+      });
+    }catch(e){ /* storage unavailable or corrupt, ignore */ }
+  }
+
+  loadState();
+  renderAll();
+
+  FIELDS.forEach(function(f){
+    var el = document.getElementById(f);
+    if(el) el.addEventListener('input', renderAll);
+  });
+})();
+</script>
